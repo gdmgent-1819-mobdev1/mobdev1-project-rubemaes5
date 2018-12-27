@@ -1,0 +1,68 @@
+{{> header }}
+
+<div class="page edit">
+    <h1>Hallo <span id="username"></span>!</h1>
+    <div class="body">
+        <form class="editform">
+            <h1>Een kot bewerken</h1>
+            <label>Huurprijs</label>
+            <input type="number" class="price" required>
+            <label>Waarborg</label>
+            <input type="number" class="borg" required>
+            <label>Soort</label>
+            <input type="text" class="type" placeholder="Kamer, Studio..." required>
+            <label>Oppervlakte</label>
+            <input type="number" class="area" required>
+            <label>Verdieping</label>
+            <input type="number" class="floor" required>
+            <label>Aantal personen per kot</label>
+            <input type="number" class="amount" required>
+            <label>Aantal koten</label>
+            <input type="number" class="amount_rooms" required>
+            <label>Toilet</label>
+            <select class="bathroom" required>
+                <option value="prive">Priv&eacute;</option>
+                <option value="Gedeeld">Gedeeld</option>
+                <option value="Geen">Geen</option>
+            </select>
+            <label>Douche</label>
+            <select class="shower" required>
+                <option value="prive">Priv&eacute;</option>
+                <option value="Gedeeld">Gedeeld</option>
+                <option value="Geen">Geen</option>
+            </select>
+            <label>Bad</label>
+            <select class="bath" required>
+                <option value="prive">Priv&eacute;</option>
+                <option value="Gedeeld">Gedeeld</option>
+                <option value="Geen">Geen</option>
+            </select>
+            <label>Keuken</label>
+            <select class="kitchen" required>
+                <option value="prive">Priv&eacute;</option>
+                <option value="Gedeeld">Gedeeld</option>
+                <option value="Geen">Geen</option>
+            </select>
+            <label>Meubels</label>
+            <select class="furniture" required>
+                <option value="Ja">Ja</option>
+                <option value=Neen>Neen</option>
+            </select>
+            <label>Stad</label>
+            <input type="text" class="city" required>
+            <label>Straat</label>
+            <input type="text" class="street" required>
+            <label>Huisnummer</label>
+            <input type="number" class="number" required>
+            <label>Postcode</label>
+            <input type="number" class="postal" required>
+            <label>Foto</label>
+            <input type="file" name="image" id="image"  class="image" required>
+            <label>beschrijving</label>
+            <textarea class="description" required></textarea>
+            <button class="verstuurtoevoegen">Verstuur</button>
+        </form>
+    </div>
+</div>
+
+{{> footer }}

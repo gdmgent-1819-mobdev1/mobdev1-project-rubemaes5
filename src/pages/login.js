@@ -30,8 +30,13 @@ export default () => {
     let password;
     let type = document.querySelector('.type');
     let name = document.querySelector('.name');
-    let adress = document.querySelector('.adress')
-    let who; 
+    let straat = document.querySelector('.straat');
+    let huisnummer = document.querySelector('.huisnummer');
+    let postcode = document.querySelector('.postcode');
+    let stad = document.querySelector('.stad');
+    let who;
+    let lat;
+    let long;
     createbutton.addEventListener('click', function (e) {
         e.preventDefault();
         email = createemail.value;
@@ -43,13 +48,41 @@ export default () => {
             var errorMessage = error.message;
 
         });
-        firebase.database().ref('users').push({
-            username: name.value,
-            email: email,
-            type: type.value,
-            adress: adress.value
-        });
-        window.location.href = '/#';
+        if (document.querySelector('.straat').value) {
+            let fulladdress = huisnummer.value + ' ' + straat.value + ' ' + stad.value + ' ' + postcode.value;
+            let regex = / /gi;
+            let address = fulladdress.replace(regex, "%20");
+            let url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + address + ".json?types=address&access_token=pk.eyJ1IjoiYnJlYWtpbmcyNjIiLCJhIjoiY2puOWF4d2huMDRtMTNycDg5eTBkaWw2aSJ9.L5hwBhfK_8aFPp6nTCruwQ";
+            console.log(url);
+            fetch(url)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    long = data.features[0].center[0];
+                    lat = data.features[0].center[1];
+                    firebase.database().ref('users').push({
+                        username: name.value,
+                        email: email,
+                        type: type.value,
+                        straat: straat.value,
+                        huisnummer: huisnummer.value,
+                        postcode: postcode.value,
+                        stad: stad.value,
+                        lat: lat,
+                        long: long
+                    });
+                    window.location.href = '/#';
+                })
+            window.location.href = '/#/home';
+        } else {
+            firebase.database().ref('users').push({
+                username: name.value,
+                email: email,
+                type: type.value
+            });
+            window.location.href = '/#';
+        }
     })
     loginbutton.addEventListener('click', function (e) {
         e.preventDefault();
@@ -65,13 +98,15 @@ export default () => {
         });
     })
     console.log('jow')
-    
+
     setInterval(function () {
-        who = document.querySelector('.type').value
-        if( who == "student"){
-            document.getElementById('onlystudent').style.display = 'block';
-        }else if(who == "kotbaas"){
-            document.getElementById('onlystudent').style.display = 'none';
+        if (document.querySelector('.type')) {
+            who = document.querySelector('.type').value
+            if (who == "student") {
+                document.getElementById('onlystudent').style.display = 'block';
+            } else if (who == "kotbaas") {
+                document.getElementById('onlystudent').style.display = 'none';
+            }
         }
     }, 500);
 };
