@@ -2,6 +2,7 @@ import Navigo from 'navigo';
 import handlebars, { compile } from 'handlebars';
 import './styles/main.sass';
 import routes from './routes';
+import './firebase/firebase.js'
 
 // Partials
 const header = require('./partials/header.handlebars');
@@ -20,14 +21,23 @@ routes.forEach((route) => {
   });
 });
 
+
+// This catches all non-existing routes and redirects back to the home
+routes.forEach((route) => {
+  router.on(route.path, () => {
+    route.view();
+    router.updatePageLinks();
+  });
+});
+
 // This catches all non-existing routes and redirects back to the home
 router.notFound(() => {
   router.navigate('/');
 });
 router.resolve();
 window.onload = () => {
-  document.onclick = (e) => {
-    e.preventDefault();
-    router.navigate(e.target.getAttribute('href'));
-  };
+  router.navigate(window.location.hash.split('/')[1]);
 };
+
+
+

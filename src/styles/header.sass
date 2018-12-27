@@ -1,7 +1,45 @@
 .header
     text-align: center
-    background-color: $secondary-color
+    background-color: $main-color
     padding: 10px
+    color: white
+    nav
+        ul
+            li
+                display: inline;
+                a
+                    text-decoration: none;
+                    color: white;
+                    font-size: 16px;
+                    margin-right: 20px
+                    transition: all 0.3s ease;
+                &:hover:before
+                    content: "";
+                    width: 30px
+                    height: 4px
+                    position: absolute
+                    background: white;
+                    top: 50px;  
+                &:before
+                    content: "";
+                    width: 0px
+                    height: 4px
+                    position: absolute
+                    background: white;
+                    transition: all 0.3s ease;
+                    top: 50px;
+                    
 
     h2
         margin: 0
+    h1
+        float: left
+        font-size: 3em
+        margin-top: -4px
+    
+.body 
+        min-height: 100vh
+    
+.navigationstudent, .navigationkotbaas
+    display: none;
+    

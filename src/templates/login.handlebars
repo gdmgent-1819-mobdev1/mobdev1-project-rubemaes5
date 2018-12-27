@@ -1,0 +1,35 @@
+{{> header }}
+<div class="page login">
+    <h1>Log in!</h1>
+    <div class="body">
+        <form class="loginform">
+            <label>Email adres</label>
+            <input type="email" class="emaillogin">
+            <label>wachtwoord</label>
+            <input type="password" class="passwordlogin">
+            <button class="loginbutton">verstuur</button>
+        </form>
+        <h1>Nieuwe account</h1>
+        <form class="create">
+            <label>Naam</label>
+            <input type="text" class="name">
+            <label>Student of Kotbaas?</label>
+            <select class="type">
+                <option value="kotbaas" id="kotbaas">kotbaas</option>
+                <option value="student" id="student">student</option>
+            </select>
+            
+            <div id="onlystudent">
+                <label>Adres van uw campus</label>
+                <input type="text" class="adress">
+            </div>
+            
+            <label>Email adres</label>
+            <input type="email" class="emailcreate">
+            <label>Password</label>
+            <input type="password" class="passwordcreate">
+            <button class="createbutton">verstuur</button>
+        </form>
+    </div>
+</div>
+{{> footer }}

@@ -1,30 +1,21 @@
 // Only import the compile function from handlebars instead of the entire library
-import {
-    compile
-} from 'handlebars';
+import { compile } from 'handlebars';
 import update from '../helpers/update';
 
+// Import the template to use
+const verwijderenTemplate = require('../templates/verwijderen.handlebars');
 const {
     getInstance
 } = require('../firebase/firebase');
 
 const firebase = getInstance();
-// Import the template to use
-const homeTemplate = require('../templates/home.handlebars');
-
 export default () => {
-    if (localStorage.getItem("useremail") !== null) {
-        console.log('logged in');
-    } else {
-        console.log('not logged in')
-        window.location.href = '/#/login';
-    }
-    // Data to be passed to the template
-    const user = 'Test user';
-    // Return the compiled template to the router
-    update(compile(homeTemplate)({
-
-    }));
+  // Data to be passed to the template
+  const name = 'Test inc.';
+  // Return the compiled template to the router
+  update(compile(verwijderenTemplate)({ 
+  
+  }));
     let username;
     let useremail = localStorage.getItem("useremail");
 
@@ -32,10 +23,10 @@ export default () => {
         snap.forEach(function (childSnapshot) {
             let data = childSnapshot.val();
             username = data.username;
-            console.log(username)
             document.getElementById('username').innerHTML = username;
+            console.log(username)
             if (data.type === "student") {
-                document.querySelector('.visibleStudent').style.display = "block";
+
                 document.querySelector('.navigationstudent').style.display = "block";
 
             } else {
@@ -46,17 +37,25 @@ export default () => {
                     snaps.forEach(function (childSnapshots){
                         let datas = childSnapshots.val();
                         if(datas.foto){
-                        document.querySelector('.yourkoten').innerHTML += "<div class='contentkot' id='"+childSnapshots.key+"'><div class='addreskot'><span>"+ datas.straat+" "+datas.huisnummer+", </span><span>"+datas.postcode+ " " + datas.stad+ "</span></div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F"+datas.foto+"?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'></div>";
+                        document.querySelector('.yourkoten').innerHTML += "<div class='contentkot' id='"+childSnapshots.key+"'><div class='addreskot'><span>"+ datas.straat+" "+datas.huisnummer+", </span><span>"+datas.postcode+ " " + datas.stad+ "</span></div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F"+datas.foto+"?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'></div><p id='"+childSnapshots.key+"' class='remove'>verwijderen</p>";
+                            
                         }else{
                              document.querySelector('.yourkoten').innerHTML += "<div class='contentkot'><p>"+ datas.straat+" "+datas.huisnummer+"</p><p>"+datas.postcode+ " " + datas.stad+ "</p></div>";
                         }
                     })
+                    let removebuttons = document.querySelectorAll('.remove')
+                
+                for(let i=0; i<removebuttons.length; i++){
+                    removebuttons[i].addEventListener('click', function(){
+                        let getkey = removebuttons[i].id;
+                        firebase.database().ref('koten/'+getkey).remove();
+                    })
+                }
+                    
                 })
+                
             }
         });
 
     })
-    
-
-
-}
+};
