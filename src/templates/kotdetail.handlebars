@@ -1,0 +1,38 @@
+{{> header }}
+<div class="body">
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v3.2&appId=781613905507476&autoLogAppEvents=1';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+    <div class="page favorites">
+        <h1>Hallo <span id="username"></span>!</h1>
+        <div class="kotdetail">
+
+        </div>
+        <div class='buttons'>
+            <div id="fb-share-button">
+                <svg viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
+                    <path class="svg-icon-path" d="M9.1,0.1V2H8C7.6,2,7.3,2.1,7.1,2.3C7,2.4,6.9,2.7,6.9,3v1.4H9L8.8,6.5H6.9V12H4.7V6.5H2.9V4.4h1.8V2.8 c0-0.9,0.3-1.6,0.7-2.1C6,0.2,6.6,0,7.5,0C8.2,0,8.7,0,9.1,0.1z"></path>
+                </svg>
+                <span>Deel dit kot</span>
+            </div><br><br>
+            <div class='messagebutton'><span>Send owner a message</span></div>
+        </div>
+        <div class="messageform">
+            <form>
+                <label>Bericht</label>
+                <textarea class="message"></textarea>
+                <button class="submitbutton">verzenden</button>
+            </form>
+        </div>
+    </div>
+</div>
+{{> footer }}

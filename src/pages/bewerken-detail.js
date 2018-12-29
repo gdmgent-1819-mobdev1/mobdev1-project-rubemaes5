@@ -140,7 +140,9 @@ export default () => {
                             beschrijving: beschrijving.value,
                             foto: data.foto,
                             lat: lat,
-                            long: long
+                            long: long,
+                            huurbaaskey: data.huurbaaskey
+                            
                         });
                     } else {
                         firebase.database().ref('/koten/' + currentKey).set({
@@ -164,7 +166,8 @@ export default () => {
                             beschrijving: beschrijving.value,
                             foto: fileName,
                             lat: lat,
-                            long: long
+                            long: long,
+                            huurbaaskey: data.huurbaaskey
                         });
                     }
                     location.reload();

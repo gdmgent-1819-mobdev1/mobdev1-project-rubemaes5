@@ -22,11 +22,13 @@ export default () => {
     }));
     let username;
     let useremail = localStorage.getItem("useremail");
+    let userkey;
 
     firebase.database().ref("/users").orderByChild('email').equalTo(useremail).on("value", function (snap) {
         snap.forEach(function (childSnapshot) {
             let data = childSnapshot.val();
             username = data.username;
+            userkey = childSnapshot.key;
             console.log(username)
             if (data.type === "student") {
 
@@ -107,7 +109,8 @@ export default () => {
                     beschrijving: beschrijving.value,
                     foto: fileName,
                     lat: lat,
-                    long: long
+                    long: long,
+                    huurbaaskey: userkey
                 });
             location.reload();
             });

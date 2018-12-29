@@ -9,6 +9,10 @@ import verwijderenView from './pages/verwijderen';
 import bewerkenView from './pages/bewerken';
 import favoritesView from './pages/favorites';
 import bewerkenDetailView from './pages/bewerken-detail';
+import kotdetailView from './pages/kotdetail';
+import searchView from './pages/search';
+import chatView from './pages/chat';
+import chatsendView from './pages/chatsend';
 
 export default [
   { path: '/', view: HomeView },
@@ -21,4 +25,9 @@ export default [
   { path: '/bewerken', view: bewerkenView },
   { path: '/bewerken-detail', view: bewerkenDetailView },
   { path: '/favorites', view: favoritesView },
+  { path: '/kotdetail', view: kotdetailView },
+  { path: '/search', view: searchView },
+  { path: '/chat', view: chatView },
+  { path: '/chatsend', view: chatsendView },
 ];
+

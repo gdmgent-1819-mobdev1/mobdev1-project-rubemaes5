@@ -60,7 +60,7 @@ export default () => {
                     snaps.forEach(function (childSnapshots){
                         let datas = childSnapshots.val();
                         if(datas.foto){
-                        document.querySelector('.yourkoten').innerHTML += "<div class='contentkot' id='"+childSnapshots.key+"'><div class='addreskot'><span>"+ datas.straat+" "+datas.huisnummer+", </span><span>"+datas.postcode+ " " + datas.stad+ "</span></div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F"+datas.foto+"?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'></div><p id='"+childSnapshots.key+"' class='edit'>bewerken</p>";
+                        document.querySelector('.yourkoten').innerHTML += "<div class='contentkot' id='"+childSnapshots.key+"'><div class='addreskot'><span>"+ datas.straat+" "+datas.huisnummer+", </span><span>"+datas.postcode+ " " + datas.stad+ "</span></div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F"+datas.foto+"?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'><div><p id='"+childSnapshots.key+"' class='edit'>bewerken</p></div></div>";
                             
                         }else{
                              document.querySelector('.yourkoten').innerHTML += "<div class='contentkot'><p>"+ datas.straat+" "+datas.huisnummer+"</p><p>"+datas.postcode+ " " + datas.stad+ "</p></div>";
