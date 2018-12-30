@@ -106,6 +106,7 @@ export default () => {
                             replyId = replybutton[i].id;
                             console.log(replyId);
                             localStorage.setItem('receiver', replyId);
+                            localStorage.setItem('receivername', datas.sendername);
                             localStorage.setItem('sender', userkey)
                             window.location.href = '/#/chatsend'
                         })
@@ -119,7 +120,7 @@ export default () => {
                 snaps.forEach(function (childSnapshots) {
                     let datas = childSnapshots.val();
                     console.log('hallo')
-                    document.querySelector('.sentmessages').innerHTML += "<div class='message'><p>" + datas.sendername + "</p><p class='contentmessage'>" + datas.message + "</p></div>";
+                    document.querySelector('.sentmessages').innerHTML += "<div class='message'><p>" + datas.receivername + "</p><p class='contentmessage'>" + datas.message + "</p></div>";
 
 
                     let replybutton = document.querySelectorAll('.reply');

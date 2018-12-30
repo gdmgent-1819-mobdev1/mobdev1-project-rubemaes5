@@ -50,6 +50,7 @@ export default () => {
     let receiverkey = localStorage.getItem('receiver')
     let senderkey = localStorage.getItem('sender')
     let username = localStorage.getItem('username')
+    let receivername = localStorage.getItem('receivername')
 
     document.querySelector('.submitform').addEventListener('click', function (e) {
         e.preventDefault();
@@ -57,6 +58,7 @@ export default () => {
             sender: senderkey,
             sendername: username,
             receiver: receiverkey,
+            receivername: receivername,
             message: document.querySelector('.message').value
         })
         if (!("Notification" in window)) {

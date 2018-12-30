@@ -167,7 +167,7 @@ export default () => {
                             oppervlakte: parseInt(datas.oppervlakte),
                             toilet: datas.toilet,
                             verdieping: datas.verdieping,
-                            afstand: parseInt(distance),
+                            afstand: distance,
                             huurbaaskey: datas.huurbaaskey
                         }
                         availableKots.push(x);
@@ -175,7 +175,7 @@ export default () => {
 
                     })
                     for (let i = 0; i < availableKots.length; i++) {
-                        document.querySelector('.kotlist').innerHTML += "<div class='contentkot' id='" + availableKots[i].key + "'><div class='addreskot'><span>" + availableKots[i].straat + " " + availableKots[i].huisnummer + ", " + availableKots[i].postcode + " " + availableKots[i].stad + "<br>" + availableKots[i].afstand + "</span>km van de campus</div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F" + availableKots[i].foto + "?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'><div>€" + availableKots[i].prijs + "<span>/maand</span></div></div>";
+                        document.querySelector('.kotlist').innerHTML += "<div class='contentkot' id='" + availableKots[i].key + "'><div class='addreskot'><span>" + availableKots[i].straat + " " + availableKots[i].huisnummer + ", " + availableKots[i].postcode + " " + availableKots[i].stad + "<br>" + availableKots[i].afstand + "</span> km van de campus</div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F" + availableKots[i].foto + "?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'><div>€" + availableKots[i].prijs + "<span>/maand</span></div></div>";
 
                         let detailbuttons = document.querySelectorAll('.contentkot');
                         for (let i = 0; i < detailbuttons.length; i++) {

@@ -150,7 +150,7 @@ export default () => {
 
                     function displayShit() {
                         document.querySelector('#tindergame').innerHTML = "";
-                        document.querySelector('#tindergame').innerHTML = "<div class='contentkot' id='" + availableKots[0].key + "'><div class='addreskot'><span>" + availableKots[0].address + "<br>" + availableKots[0].afstand + "</span>km van de campus</div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F" + availableKots[0].foto + "?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'></div><div>€" + availableKots[0].prijs + "<span>/maand</span></div>";
+                        document.querySelector('#tindergame').innerHTML = "<div class='contentkot' id='" + availableKots[0].key + "'><div class='addreskot'><span>" + availableKots[0].address + "<br>" + availableKots[0].afstand + "</span> km van de campus</div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F" + availableKots[0].foto + "?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'></div><div>€" + availableKots[0].prijs + "<span>/maand</span></div>";
                     }
                     displayShit()
                     document.querySelector('.likeButton').addEventListener('click', function () {
