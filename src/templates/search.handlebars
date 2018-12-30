@@ -3,11 +3,27 @@
     <h1>Hallo <span id="username"></span>!</h1>
     <div class="body">
         <div class="filter">
-        
+            <h2>Filter</h2>
+            <label>Soort (kamer, studio, appartement)</label>
+            <select type="text" class="type">
+                <option>Kamer</option>
+                <option>Appartement</option>
+                <option>Studio</option>
+            </select>
+            <label>minimum oppervlakte</label>
+            <input type="number" class="oppervlakte">
+            <label>Huurprijs (van-tot)</label>
+            <input type="number" class="minprice">
+            <input type="number" class="maxprice">
+            <label>Afstand (van-tot)</label>
+            <input type="number" class="mindistance">
+            <input type="number" class="maxdistance">
+            <button class="filterknop">filter</button>
         </div>
         <div class="kotlist"></div>
-        
-        
+        <div id="map"></div>
+
+
     </div>
 </div>
 {{> footer }}

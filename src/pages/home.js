@@ -13,6 +13,7 @@ const firebase = getInstance();
 const homeTemplate = require('../templates/home.handlebars');
 
 export default () => {
+    
     if (localStorage.getItem("useremail") !== null) {
         console.log('logged in');
     } else {
@@ -25,6 +26,18 @@ export default () => {
     update(compile(homeTemplate)({
 
     }));
+    document.querySelector('.hamburger').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "0%";
+    })
+    document.querySelector('.closenav').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "100%";
+    })
+    Notification.requestPermission().then(function (result) {
+        console.log(result);
+        if(result == "granted"){
+            localStorage.setItem('notify', true);
+        }
+    });
     document.getElementById('logout').addEventListener('click', function () {
         firebase.auth().signOut().then(function () {
             console.log("loggedout");
@@ -88,31 +101,31 @@ export default () => {
                         let d = R * c; // Distance in km
                         let distance = d.toFixed(3);
                         console.log(distance);
-                        
-                            let x = {
-                                aantalkoten: datas.aantalkoten,
-                                foto: datas.foto,
-                                key: childSnapshots.key,
-                                address: datas.straat + " " + datas.huisnummer + ", " + datas.postcode + " " + datas.stad,
-                                prijs: datas.prijs,
-                                lat: datas.lat,
-                                long: datas.long,
-                                aantalpersonen: datas.aantalpersonen,
-                                bad: datas.bad,
-                                beschrijving: datas.beschrijving,
-                                borg: datas.borg,
-                                douche: datas.douche,
-                                huisnummer: datas.huisnummer,
-                                stad: datas.stad,
-                                straat: datas.straat,
-                                postcode: datas.postcode,
-                                meubels: datas.meubels,
-                                oppervlakte: datas.oppervlakte,
-                                toilet: datas.toilet,
-                                verdieping: datas.verdieping,
-                                afstand: distance,
-                                huurbaaskey: datas.huurbaaskey
-                            }
+
+                        let x = {
+                            aantalkoten: datas.aantalkoten,
+                            foto: datas.foto,
+                            key: childSnapshots.key,
+                            address: datas.straat + " " + datas.huisnummer + ", " + datas.postcode + " " + datas.stad,
+                            prijs: datas.prijs,
+                            lat: datas.lat,
+                            long: datas.long,
+                            aantalpersonen: datas.aantalpersonen,
+                            bad: datas.bad,
+                            beschrijving: datas.beschrijving,
+                            borg: datas.borg,
+                            douche: datas.douche,
+                            huisnummer: datas.huisnummer,
+                            stad: datas.stad,
+                            straat: datas.straat,
+                            postcode: datas.postcode,
+                            meubels: datas.meubels,
+                            oppervlakte: datas.oppervlakte,
+                            toilet: datas.toilet,
+                            verdieping: datas.verdieping,
+                            afstand: distance,
+                            huurbaaskey: datas.huurbaaskey
+                        }
                         availableKots.push(x);
                         console.log(availableKots);
                     })
@@ -121,7 +134,7 @@ export default () => {
 
                     function displayShit() {
                         document.querySelector('#tindergame').innerHTML = "";
-                        document.querySelector('#tindergame').innerHTML = "<div class='contentkot' id='" + availableKots[0].key + "'><div class='addreskot'><span>" + availableKots[0].address + "<br>"+availableKots[0].afstand+"</span>km van de campus</div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F" + availableKots[0].foto + "?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'></div><div>€"+availableKots[0].prijs+"<span>/maand</span></div>";
+                        document.querySelector('#tindergame').innerHTML = "<div class='contentkot' id='" + availableKots[0].key + "'><div class='addreskot'><span>" + availableKots[0].address + "<br>" + availableKots[0].afstand + "</span>km van de campus</div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F" + availableKots[0].foto + "?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'></div><div>€" + availableKots[0].prijs + "<span>/maand</span></div>";
                     }
                     displayShit()
                     document.querySelector('.likeButton').addEventListener('click', function () {
@@ -165,9 +178,9 @@ export default () => {
                     snaps.forEach(function (childSnapshots) {
                         let datas = childSnapshots.val();
                         if (datas.foto) {
-                            document.querySelector('.yourkoten').innerHTML +=  "<div class='contentkot' id='" + childSnapshots.key + "'><div class='addreskot'><span>" + datas.straat + " " + datas.huisnummer + ", </span><span>" + datas.postcode + " " + datas.stad + "</div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F" + datas.foto + "?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'><div>€"+datas.prijs+"<span>/maand</span></div></a></div>"
+                            document.querySelector('.yourkoten').innerHTML += "<div class='contentkot' id='" + childSnapshots.key + "'><div class='addreskot'><span>" + datas.straat + " " + datas.huisnummer + ", </span><span>" + datas.postcode + " " + datas.stad + "</div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F" + datas.foto + "?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'><div>€" + datas.prijs + "<span>/maand</span></div></a></div>"
                         } else {
-                            document.querySelector('.yourkoten').innerHTML += "<div class='contentkot'><p>" + datas.straat + " " + datas.huisnummer + "</p><p>" + datas.postcode + " " + datas.stad + "</p></div><div>€"+datas.prijs+"<span>/maand</span></div>";
+                            document.querySelector('.yourkoten').innerHTML += "<div class='contentkot'><p>" + datas.straat + " " + datas.huisnummer + "</p><p>" + datas.postcode + " " + datas.stad + "</p></div><div>€" + datas.prijs + "<span>/maand</span></div>";
                         }
                     })
                 })
@@ -175,8 +188,9 @@ export default () => {
         });
 
     })
+
     function deg2rad(deg) {
-  return deg * (Math.PI/180)
-}
+        return deg * (Math.PI / 180)
+    }
 
 }

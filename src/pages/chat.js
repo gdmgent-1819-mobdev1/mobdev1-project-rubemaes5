@@ -17,6 +17,12 @@ export default () => {
     update(compile(chatTemplate)({
         name
     }));
+     document.querySelector('.hamburger').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "0%";
+    })
+    document.querySelector('.closenav').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "100%";
+    })
     document.getElementById('logout').addEventListener('click', function () {
         firebase.auth().signOut().then(function () {
             console.log("loggedout");
@@ -69,9 +75,28 @@ export default () => {
             firebase.database().ref("/messages").orderByChild('receiver').equalTo(userkey).on("value", function (snaps) {
                 document.querySelector('.inboxmessages').innerHTML = "";
                 snaps.forEach(function (childSnapshots) {
+                    if (!("Notification" in window)) {
+                        alert("This browser does not support system notifications");
+                    }
+
+                    // Let's check whether notification permissions have already been granted
+                    else if (Notification.permission === "granted") {
+                        // If it's okay let's create a notification
+                        var notification = new Notification("Message received");
+                    }
+
+                    // Otherwise, we need to ask the user for permission
+                    else if (Notification.permission !== 'denied') {
+                        Notification.requestPermission(function (permission) {
+                            // If the user accepts, let's create a notification
+                            if (permission === "granted") {
+                                var notification = new Notification("Message received");
+                            }
+                        });
+                    }
                     let datas = childSnapshots.val();
                     console.log('hallo')
-                    document.querySelector('.inboxmessages').innerHTML += "<div class='message'><p>verzender: " + datas.sendername + "</p><p class='contentmessage'>bericht: " + datas.message + "</p><p class='reply' id='" + datas.sender + "'>beantwoord</p></div>";
+                    document.querySelector('.inboxmessages').innerHTML += "<div class='message'><p>" + datas.sendername + "</p><p class='contentmessage'>" + datas.message + "</p><p class='reply' id='" + datas.sender + "'>beantwoord</p></div>";
 
 
                     let replybutton = document.querySelectorAll('.reply');
@@ -94,7 +119,7 @@ export default () => {
                 snaps.forEach(function (childSnapshots) {
                     let datas = childSnapshots.val();
                     console.log('hallo')
-                    document.querySelector('.sentmessages').innerHTML += "<div class='message'><p>verzender: " + datas.sendername + "</p><p class='contentmessage'>bericht: " + datas.message + "</p></div>";
+                    document.querySelector('.sentmessages').innerHTML += "<div class='message'><p>" + datas.sendername + "</p><p class='contentmessage'>" + datas.message + "</p></div>";
 
 
                     let replybutton = document.querySelectorAll('.reply');

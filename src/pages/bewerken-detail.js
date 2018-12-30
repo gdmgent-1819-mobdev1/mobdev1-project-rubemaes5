@@ -17,6 +17,12 @@ export default () => {
     const name = 'Test inc.';
     // Return the compiled template to the router
     update(compile(bewerkenDetailTemplate)({}));
+     document.querySelector('.hamburger').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "0%";
+    })
+    document.querySelector('.closenav').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "100%";
+    })
     document.getElementById('logout').addEventListener('click', function () {
         firebase.auth().signOut().then(function () {
             console.log("loggedout");

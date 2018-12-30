@@ -20,6 +20,12 @@ export default () => {
     update(compile(loginTemplate)({
 
     }));
+     document.querySelector('.hamburger').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "0%";
+    })
+    document.querySelector('.closenav').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "100%";
+    })
     let createbutton = document.querySelector('.createbutton');
     let loginbutton = document.querySelector('.loginbutton');
     let createemail = document.querySelector('.emailcreate');

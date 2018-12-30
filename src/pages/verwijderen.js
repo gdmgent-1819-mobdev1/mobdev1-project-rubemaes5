@@ -16,6 +16,35 @@ export default () => {
   update(compile(verwijderenTemplate)({ 
   
   }));
+     document.querySelector('.hamburger').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "0%";
+    })
+    document.querySelector('.closenav').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "100%";
+    })
+     document.getElementById('logout').addEventListener('click', function () {
+        firebase.auth().signOut().then(function () {
+            console.log("loggedout");
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('currentUserKey');
+            localStorage.removeItem('useremail');
+
+            location.reload();
+        }, function (error) {
+            // An error happened.
+        });
+    })
+    document.getElementById('logout2').addEventListener('click', function () {
+        firebase.auth().signOut().then(function () {
+            console.log("loggedout");
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('currentUserKey');
+            localStorage.removeItem('useremail');
+            location.reload();
+        }, function (error) {
+            // An error happened.
+        });
+    })
     let username;
     let useremail = localStorage.getItem("useremail");
 
@@ -37,7 +66,7 @@ export default () => {
                     snaps.forEach(function (childSnapshots){
                         let datas = childSnapshots.val();
                         if(datas.foto){
-                        document.querySelector('.yourkoten').innerHTML += "<div class='contentkot' id='"+childSnapshots.key+"'><div class='addreskot'><span>"+ datas.straat+" "+datas.huisnummer+", </span><span>"+datas.postcode+ " " + datas.stad+ "</span></div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F"+datas.foto+"?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'></div><p id='"+childSnapshots.key+"' class='remove'>verwijderen</p>";
+                        document.querySelector('.yourkoten').innerHTML += "<div class='contentkot' id='"+childSnapshots.key+"'><div class='addreskot'><span>"+ datas.straat+" "+datas.huisnummer+", </span><span>"+datas.postcode+ " " + datas.stad+ "</span></div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F"+datas.foto+"?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'><div><p id='"+childSnapshots.key+"' class='remove'>verwijderen</p></div></div>";
                             
                         }else{
                              document.querySelector('.yourkoten').innerHTML += "<div class='contentkot'><p>"+ datas.straat+" "+datas.huisnummer+"</p><p>"+datas.postcode+ " " + datas.stad+ "</p></div>";

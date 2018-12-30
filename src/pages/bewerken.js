@@ -16,6 +16,12 @@ export default () => {
   update(compile(bewerkenTemplate)({ 
   
   }));
+     document.querySelector('.hamburger').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "0%";
+    })
+    document.querySelector('.closenav').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "100%";
+    })
     document.getElementById('logout').addEventListener('click', function () {
         firebase.auth().signOut().then(function () {
             console.log("loggedout");

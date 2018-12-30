@@ -20,6 +20,35 @@ export default () => {
     update(compile(toevoegenTemplate)({
 
     }));
+     document.querySelector('.hamburger').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "0%";
+    })
+    document.querySelector('.closenav').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "100%";
+    })
+     document.getElementById('logout').addEventListener('click', function () {
+        firebase.auth().signOut().then(function () {
+            console.log("loggedout");
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('currentUserKey');
+            localStorage.removeItem('useremail');
+
+            location.reload();
+        }, function (error) {
+            // An error happened.
+        });
+    })
+    document.getElementById('logout2').addEventListener('click', function () {
+        firebase.auth().signOut().then(function () {
+            console.log("loggedout");
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('currentUserKey');
+            localStorage.removeItem('useremail');
+            location.reload();
+        }, function (error) {
+            // An error happened.
+        });
+    })
     let username;
     let useremail = localStorage.getItem("useremail");
     let userkey;

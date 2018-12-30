@@ -2,6 +2,7 @@
 <div></div>
 
 <div>
+    <div class="page body">
     <form class="addform">
         <h1>Een kot toevoegen</h1>
         <label>Huurprijs</label>
@@ -9,7 +10,11 @@
         <label>Waarborg</label>
         <input type="number" class="borg" required>
         <label>Soort</label>
-        <input type="text" class="type" placeholder="Kamer, Studio..." required>
+        <select type="text" class="type">
+            <option>Kamer</option>
+            <option>Appartement</option>
+            <option>Studio</option>
+        </select>
         <label>Oppervlakte</label>
         <input type="number" class="area" required>
         <label>Verdieping</label>
@@ -61,5 +66,6 @@
         <textarea class="description" required></textarea>
         <button class="verstuurtoevoegen">Verstuur</button>
     </form>
+        </div>
 </div>
 {{> footer }}

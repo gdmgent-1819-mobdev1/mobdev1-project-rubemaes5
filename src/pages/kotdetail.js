@@ -14,6 +14,12 @@ export default () => {
   const name = 'Test inc.';
   // Return the compiled template to the router
   update(compile(kotdetailTemplate)({  }));
+     document.querySelector('.hamburger').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "0%";
+    })
+    document.querySelector('.closenav').addEventListener('click', function(){
+        document.querySelector('.fullnav').style.left = "100%";
+    })
      document.getElementById('logout').addEventListener('click', function () {
         firebase.auth().signOut().then(function () {
             console.log("loggedout");
@@ -69,7 +75,7 @@ export default () => {
             firebase.database().ref('koten/'+currentKot).on('value', function (snaps) {
                 let datas = snaps.val();
                 let kotdetail = document.querySelector('.kotdetail');
-                let content = "<img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F" + datas.foto + "?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0'><div class='info'><h1>"+datas.soort+" - €"+datas.prijs+"</h1><h2>"+datas.straat+" "+datas.huisnummer+", "+datas.postcode+" "+datas.stad+"</h2><table><tr><td>bad</td><td>"+datas.bad+"</td></tr><tr><td>douche</td><td>"+datas.douche+"</td></tr><tr><td>toilet</td><td>"+datas.toilet+"</td></tr><tr><td>keuken</td><td>"+datas.keuken+"</td></tr><tr><td>meubels</td><td>"+datas.meubels+"</td></tr><tr><td>waarborg</td><td>€"+datas.borg+"</td></tr><tr><td>verdieping</td><td>"+datas.verdieping+"</td></tr><tr><td>aantal koten</td><td>"+datas.aantalkoten+"</td></tr><tr><td>aantal personen per kot</td><td>"+datas.aantalpersonen+"</td></tr><tr><td>oppervlakte</td><td>"+datas.oppervlakte+"m&sup2;</td></tr></table></div>";
+                let content = "<img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F" + datas.foto + "?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0'><div class='info'><h1>"+datas.soort+" - €"+datas.prijs+"</h1><h2>"+datas.straat+" "+datas.huisnummer+", "+datas.postcode+" "+datas.stad+"</h2><table><tr><td>bad</td><td>"+datas.bad+"</td></tr><tr><td>douche</td><td>"+datas.douche+"</td></tr><tr><td>toilet</td><td>"+datas.toilet+"</td></tr><tr><td>keuken</td><td>"+datas.keuken+"</td></tr><tr><td>meubels</td><td>"+datas.meubels+"</td></tr><tr><td>waarborg</td><td>€"+datas.borg+"</td></tr><tr><td>verdieping</td><td>"+datas.verdieping+"</td></tr><tr><td>aantal koten</td><td>"+datas.aantalkoten+"</td></tr><tr><td>aantal personen per kot</td><td>"+datas.aantalpersonen+"</td></tr><tr><td>oppervlakte</td><td>"+datas.oppervlakte+"m&sup2;</td></tr></table><p>"+datas.beschrijving+"<br><br></p></div>";
                 kotdetail.innerHTML = content;
                 kotbaaskey = datas.huurbaaskey;
                 document.querySelector('.messagebutton').addEventListener('click', function(){

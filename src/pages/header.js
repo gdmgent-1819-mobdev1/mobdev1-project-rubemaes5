@@ -10,5 +10,28 @@ export default () => {
   const name = 'Test inc.';
   // Return the compiled template to the router
   update(compile(headerTemplate)({  }));
+     document.getElementById('logout').addEventListener('click', function () {
+        firebase.auth().signOut().then(function () {
+            console.log("loggedout");
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('currentUserKey');
+            localStorage.removeItem('useremail');
+
+            location.reload();
+        }, function (error) {
+            // An error happened.
+        });
+    })
+    document.getElementById('logout2').addEventListener('click', function () {
+        firebase.auth().signOut().then(function () {
+            console.log("loggedout");
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('currentUserKey');
+            localStorage.removeItem('useremail');
+            location.reload();
+        }, function (error) {
+            // An error happened.
+        });
+    })
     
 };

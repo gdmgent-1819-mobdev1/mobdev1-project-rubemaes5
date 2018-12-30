@@ -1,6 +1,6 @@
 {{> header }}
 
-<div class="page edit">
+<div class="page editpage">
     <h1>Hallo <span id="username"></span>!</h1>
     <div class="body">
         <form class="editform">
@@ -10,7 +10,11 @@
             <label>Waarborg</label>
             <input type="number" class="borg" required>
             <label>Soort</label>
-            <input type="text" class="type" placeholder="Kamer, Studio..." required>
+            <select type="text" class="type">
+                <option>Kamer</option>
+                <option>Appartement</option>
+                <option>Studio</option>
+            </select>
             <label>Oppervlakte</label>
             <input type="number" class="area" required>
             <label>Verdieping</label>

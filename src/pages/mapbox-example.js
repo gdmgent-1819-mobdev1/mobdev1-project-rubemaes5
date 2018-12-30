@@ -20,9 +20,9 @@ export default () => {
     // eslint-disable-next-line no-unused-vars
     const map = new mapboxgl.Map({
       container: 'map',
-      center: [-74.50, 40],
+      center: [-3.7174243, 51.0543422],
       style: 'mapbox://styles/mapbox/streets-v9',
-      zoom: 1,
+      zoom: 4,
     });
   } else {
     console.error('Mapbox will crash the page if no access token is given.');
