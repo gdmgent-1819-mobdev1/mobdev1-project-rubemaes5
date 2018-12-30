@@ -26,10 +26,10 @@ export default () => {
     update(compile(searchTemplate)({
 
     }));
-     document.querySelector('.hamburger').addEventListener('click', function(){
+    document.querySelector('.hamburger').addEventListener('click', function () {
         document.querySelector('.fullnav').style.left = "0%";
     })
-    document.querySelector('.closenav').addEventListener('click', function(){
+    document.querySelector('.closenav').addEventListener('click', function () {
         document.querySelector('.fullnav').style.left = "100%";
     })
     document.getElementById('logout').addEventListener('click', function () {
@@ -71,7 +71,7 @@ export default () => {
     let minafstand;
     let maxafstand;
     let map;
-    
+
     if (config.mapBoxToken) {
         mapboxgl.accessToken = config.mapBoxToken;
         // eslint-disable-next-line no-unused-vars
@@ -87,32 +87,31 @@ export default () => {
     firebase.database().ref('/koten').on('value', function (snap) {
         snap.forEach(function (childSnapshot) {
             let dat = childSnapshot.val();
-            setTimeout(function(){
-                map.addSource("geomarker" + childSnapshot.key, { //making a source for the radius
-                    "type": "geojson",
-                    "data": {
-                        "type": "FeatureCollection",
-                        "features": [{
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [dat.long, dat.lat]
-                            }
-                        }]
+            setTimeout(function () {
+                new mapboxgl.Marker()
+                    .setLngLat([dat.long, dat.lat])
+                    .setPopup(new mapboxgl.Popup({
+                            className: 'mapbox-pop-up'
+                        })
+                        .setHTML(
+                            "<div class='godetail' id='" + childSnapshot.key + "'><p class='mapbox-pop-up-title'>" + dat.straat + " " + dat.huisnummer + " " + dat.postcode + " " + dat.stad + "</p><p>€ " + dat.prijs + "</p><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F" + dat.foto + "?alt=media&token=9bcb0f6c-a489-46ba-b12e-67baeb432471' style='width: 100px; height: 66px;'></div>"
+                        ))
+                    .addTo(map);
+                setTimeout(function () {
+                    let godetailbuttons = document.querySelectorAll('.godetail');
+                    for (let i = 0; i < godetailbuttons.length; i++) {
+                            console.log('u klikte')
+
+                        godetailbuttons[i].addEventListener('click', function () {
+                            let getkey2 = godetailbuttons[i].id;
+                            localStorage.setItem('currentKot', getkey2)
+                            window.location.href = '/#/kotdetail';
+                        })
                     }
-                });
-                map.addLayer({ //displaying the radius of the circle
-                    "id": "geomarker" + childSnapshot.key,
-                    "type": "circle",
-                    "source": "geomarker" + childSnapshot.key,
-                    "paint": {
-                        "circle-radius": 10, //radius with the variable radius
-                        "circle-color": "#FF0000", //color
-                        "circle-opacity": 1, //opacity
-                    }
-                });
-                }, 1000)
-            
+                }, 200)
+            }, 1000)
+
+
         })
     })
     firebase.database().ref("/users").orderByChild('email').equalTo(useremail).on("value", function (snap) {
@@ -187,7 +186,7 @@ export default () => {
                         }
                     }
                     document.querySelector('.filterknop').addEventListener('click', function () {
-                        
+
                         soort = document.querySelector('.type').value;
                         oppervlakte = document.querySelector('.oppervlakte').value;
                         minafstand = document.querySelector('.mindistance').value;
@@ -215,7 +214,7 @@ export default () => {
                                     continue;
                                 }
                             }
-                        }else{
+                        } else {
                             document.querySelector('.error').style.transform = "scale(1)";
                         }
                     })
