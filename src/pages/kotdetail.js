@@ -106,6 +106,7 @@ export default () => {
                         message: document.querySelector('.message').value,
                         receivername: datas.huurbaas
                     })
+                    location.reload();
                 })
                 document.querySelector('.favoritebutton').addEventListener('click', function (e) {
                     e.preventDefault();
