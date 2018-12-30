@@ -67,7 +67,7 @@ export default () => {
                     snap.forEach(function (childSnapshot) {
                         let data = childSnapshot.val();
 
-                        document.querySelector('.listfavorites').innerHTML += "<div class='contentkot' id='" + childSnapshot.key + "'><div class='addreskot'><span>" + data.straat + " " + data.huisnummer + ", </span><span>" + data.postcode + " " + data.stad + "<br>"+data.afstand+"km van de campus</span></div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F" + data.foto + "?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'><div>€"+data.prijs+"<span>/maand</span></div></a><p id='" + childSnapshot.key + "' class='remove'>verwijderen</p></div>";
+                        document.querySelector('.listfavorites').innerHTML += "<div class='contentkot'><div class='clicklink'  id='" + childSnapshot.key + "'><div class='addreskot'><span>" + data.straat + " " + data.huisnummer + ", </span><span>" + data.postcode + " " + data.stad + "<br>"+data.afstand+"km van de campus</span></div><img src='https://firebasestorage.googleapis.com/v0/b/kottet-36e19.appspot.com/o/images%2F" + data.foto + "?alt=media&token=ad63c346-c172-42f5-afc0-5d65f6baf0d0' class='kotimage'><div>€"+data.prijs+"<span>/maand</span></div></a></div><p id='" + childSnapshot.key + "' class='remove'>verwijderen</p></div>";
 
                         let removebuttons = document.querySelectorAll('.remove');
                         for (let i = 0; i < removebuttons.length; i++) {
@@ -76,7 +76,7 @@ export default () => {
                                 firebase.database().ref('favorites/' + userkey +"/"+getkey).remove();
                             })
                         }
-                        let detailbuttons = document.querySelectorAll('.contentkot');
+                        let detailbuttons = document.querySelectorAll('.clicklink');
                         for (let i = 0; i < detailbuttons.length; i++) {
                             detailbuttons[i].addEventListener('click', function () {
                                 let getkey = detailbuttons[i].id;

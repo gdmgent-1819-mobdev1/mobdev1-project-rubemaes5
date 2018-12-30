@@ -20,10 +20,10 @@ export default () => {
     update(compile(loginTemplate)({
 
     }));
-     document.querySelector('.hamburger').addEventListener('click', function(){
+    document.querySelector('.hamburger').addEventListener('click', function () {
         document.querySelector('.fullnav').style.left = "0%";
     })
-    document.querySelector('.closenav').addEventListener('click', function(){
+    document.querySelector('.closenav').addEventListener('click', function () {
         document.querySelector('.fullnav').style.left = "100%";
     })
     let createbutton = document.querySelector('.createbutton');
@@ -49,46 +49,47 @@ export default () => {
         password = createpassword.value;
         firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
             localStorage.setItem("useremail", email);
+            if (document.querySelector('.straat').value) {
+                let fulladdress = huisnummer.value + ' ' + straat.value + ' ' + stad.value + ' ' + postcode.value;
+                let regex = / /gi;
+                let address = fulladdress.replace(regex, "%20");
+                let url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + address + ".json?types=address&access_token=pk.eyJ1IjoiYnJlYWtpbmcyNjIiLCJhIjoiY2puOWF4d2huMDRtMTNycDg5eTBkaWw2aSJ9.L5hwBhfK_8aFPp6nTCruwQ";
+                console.log(url);
+                fetch(url)
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        long = data.features[0].center[0];
+                        lat = data.features[0].center[1];
+                        firebase.database().ref('users').push({
+                            username: name.value,
+                            email: email,
+                            type: type.value,
+                            straat: straat.value,
+                            huisnummer: huisnummer.value,
+                            postcode: postcode.value,
+                            stad: stad.value,
+                            lat: lat,
+                            long: long
+                        });
+                    })
+
+            } else {
+                firebase.database().ref('users').push({
+                    username: name.value,
+                    email: email,
+                    type: type.value
+                });
+
+            }
+            window.location.href = "/#"
         }).catch(function (error) {
             var errorCode = error.code;
             var errorMessage = error.message;
 
         });
-        if (document.querySelector('.straat').value) {
-            let fulladdress = huisnummer.value + ' ' + straat.value + ' ' + stad.value + ' ' + postcode.value;
-            let regex = / /gi;
-            let address = fulladdress.replace(regex, "%20");
-            let url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + address + ".json?types=address&access_token=pk.eyJ1IjoiYnJlYWtpbmcyNjIiLCJhIjoiY2puOWF4d2huMDRtMTNycDg5eTBkaWw2aSJ9.L5hwBhfK_8aFPp6nTCruwQ";
-            console.log(url);
-            fetch(url)
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (data) {
-                    long = data.features[0].center[0];
-                    lat = data.features[0].center[1];
-                    firebase.database().ref('users').push({
-                        username: name.value,
-                        email: email,
-                        type: type.value,
-                        straat: straat.value,
-                        huisnummer: huisnummer.value,
-                        postcode: postcode.value,
-                        stad: stad.value,
-                        lat: lat,
-                        long: long
-                    });
-                    window.location.href = '/#';
-                })
-            window.location.href = '/#/home';
-        } else {
-            firebase.database().ref('users').push({
-                username: name.value,
-                email: email,
-                type: type.value
-            });
-            window.location.href = '/#';
-        }
+
     })
     loginbutton.addEventListener('click', function (e) {
         e.preventDefault();

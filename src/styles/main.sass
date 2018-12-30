@@ -209,7 +209,7 @@ table
     
 input[type="file"]
     border: none;
-input, textarea
+input, textarea, select
     border-radius: 30px
     width: 95%
 // general
@@ -259,6 +259,71 @@ input, textarea
     float: none
     display: block
     margin: 20px auto
-    
+.clearfix:after 
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
 
+.clearfix  
+    display: inline-block; 
+/* start commented backslash hack \*/
+* html .clearfix  
+    height: 1%; 
+.clearfix  
+    display: block; 
+/* close commented backslash hack */
+
+.error
+    width: 150px
+    height: 20px
+    border: 6px solid $main-color;
+    display: inline-block
+    margin-bottom: 25px
+    padding-top: 7px
+    transition: all 0.4s ease;
+    transform: scale(0)
+    color: $main-color
+
+@media screen and (min-width: 900px)
     
+    .contentkot
+        position: relative
+        margin-left: 3%
+        float: left
+        width: 30%
+        margin-bottom: 60px 
+    .fullnav
+    
+        transition: all 0.4s ease
+        position: static
+        float: none
+        left: 100%;
+        top: 0
+        height: auto
+        overflow: none;
+        width: auto
+        background: $main-color
+        z-index: 999999999;
+        .closenav
+            display: none
+        nav
+            ul
+                li
+                    display: inline
+    .hamburger
+        display: none
+    .kotdetail
+        img
+            width: 700px
+            height: 500px
+    .inboxmessages, .sentmessages
+        width: 50%
+        margin: 0 auto
+        
+    .loginform, .create, .editform, .addform
+        width: 35%;
+        margin: 0 auto;
+        margin-bottom: 160px

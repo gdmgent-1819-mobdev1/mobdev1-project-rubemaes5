@@ -13,7 +13,7 @@ const firebase = getInstance();
 const homeTemplate = require('../templates/home.handlebars');
 
 export default () => {
-    
+
     if (localStorage.getItem("useremail") !== null) {
         console.log('logged in');
     } else {
@@ -26,15 +26,15 @@ export default () => {
     update(compile(homeTemplate)({
 
     }));
-    document.querySelector('.hamburger').addEventListener('click', function(){
+    document.querySelector('.hamburger').addEventListener('click', function () {
         document.querySelector('.fullnav').style.left = "0%";
     })
-    document.querySelector('.closenav').addEventListener('click', function(){
+    document.querySelector('.closenav').addEventListener('click', function () {
         document.querySelector('.fullnav').style.left = "100%";
     })
     Notification.requestPermission().then(function (result) {
         console.log(result);
-        if(result == "granted"){
+        if (result == "granted") {
             localStorage.setItem('notify', true);
         }
     });
@@ -70,6 +70,9 @@ export default () => {
     let useremail = localStorage.getItem("useremail");
     let availableKots = [];
     let userkey;
+
+    let arraykotkey = [];
+
     firebase.database().ref("/users").orderByChild('email').equalTo(useremail).on("value", function (snap) {
         snap.forEach(function (childSnapshot) {
             let data = childSnapshot.val();
@@ -78,6 +81,14 @@ export default () => {
             localStorage.setItem('userkey', userkey);
             latuser = data.lat;
             longuser = data.long;
+
+            firebase.database().ref('favorites/' + userkey).on('value', function (snap) {
+                snap.forEach(function (childsnap) {
+                    let kotkey = childsnap.key
+                    arraykotkey.push(kotkey)
+                    console.log(arraykotkey)
+                })
+            })
 
             console.log(username)
             document.getElementById('username').innerHTML = username;
@@ -101,33 +112,38 @@ export default () => {
                         let d = R * c; // Distance in km
                         let distance = d.toFixed(3);
                         console.log(distance);
+                        console.log(arraykotkey.includes(childSnapshots.key))
+                        if (arraykotkey.includes(childSnapshots.key)) {
+                            
+                        } else {
 
-                        let x = {
-                            aantalkoten: datas.aantalkoten,
-                            foto: datas.foto,
-                            key: childSnapshots.key,
-                            address: datas.straat + " " + datas.huisnummer + ", " + datas.postcode + " " + datas.stad,
-                            prijs: datas.prijs,
-                            lat: datas.lat,
-                            long: datas.long,
-                            aantalpersonen: datas.aantalpersonen,
-                            bad: datas.bad,
-                            beschrijving: datas.beschrijving,
-                            borg: datas.borg,
-                            douche: datas.douche,
-                            huisnummer: datas.huisnummer,
-                            stad: datas.stad,
-                            straat: datas.straat,
-                            postcode: datas.postcode,
-                            meubels: datas.meubels,
-                            oppervlakte: datas.oppervlakte,
-                            toilet: datas.toilet,
-                            verdieping: datas.verdieping,
-                            afstand: distance,
-                            huurbaaskey: datas.huurbaaskey
+                            let x = {
+                                aantalkoten: datas.aantalkoten,
+                                foto: datas.foto,
+                                key: childSnapshots.key,
+                                address: datas.straat + " " + datas.huisnummer + ", " + datas.postcode + " " + datas.stad,
+                                prijs: datas.prijs,
+                                lat: datas.lat,
+                                long: datas.long,
+                                aantalpersonen: datas.aantalpersonen,
+                                bad: datas.bad,
+                                beschrijving: datas.beschrijving,
+                                borg: datas.borg,
+                                douche: datas.douche,
+                                huisnummer: datas.huisnummer,
+                                stad: datas.stad,
+                                straat: datas.straat,
+                                postcode: datas.postcode,
+                                meubels: datas.meubels,
+                                oppervlakte: datas.oppervlakte,
+                                toilet: datas.toilet,
+                                verdieping: datas.verdieping,
+                                afstand: distance,
+                                huurbaaskey: datas.huurbaaskey
+                            }
+                            availableKots.push(x);
+                            console.log(availableKots);
                         }
-                        availableKots.push(x);
-                        console.log(availableKots);
                     })
                     availableKots.sort((a, b) => a.afstand - b.afstand);
                     console.log(availableKots)

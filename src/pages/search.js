@@ -187,7 +187,7 @@ export default () => {
                         }
                     }
                     document.querySelector('.filterknop').addEventListener('click', function () {
-                        document.querySelector('.kotlist').innerHTML = ""
+                        
                         soort = document.querySelector('.type').value;
                         oppervlakte = document.querySelector('.oppervlakte').value;
                         minafstand = document.querySelector('.mindistance').value;
@@ -195,7 +195,8 @@ export default () => {
                         minhuurprijs = document.querySelector('.minprice').value;
                         maxhuurprijs = document.querySelector('.maxprice').value;
 
-                        if (soort !== "" || oppervlakte !== "" || minafstand !== "" || maxafstand !== "" || minhuurprijs !== "" || maxhuurprijs !== "") {
+                        if (soort !== "" && oppervlakte !== "" && minafstand !== "" && maxafstand !== "" && minhuurprijs !== "" && maxhuurprijs !== "") {
+                            document.querySelector('.kotlist').innerHTML = "";
                             console.log('dit werkt')
                             for (let i = 0; i < availableKots.length; i++) {
                                 let d = i;
@@ -214,6 +215,8 @@ export default () => {
                                     continue;
                                 }
                             }
+                        }else{
+                            document.querySelector('.error').style.transform = "scale(1)";
                         }
                     })
                 })
