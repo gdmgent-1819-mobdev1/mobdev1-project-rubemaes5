@@ -102,6 +102,7 @@ export default () => {
             localStorage.setItem("useremail", email);
             window.location.href = '/#';
         }).catch(function (error) {
+            document.querySelector('.foutje').style.display = "block";
             var errorCode = error.code;
             var errorMessage = error.message;
 
