@@ -40,6 +40,7 @@ export default () => {
     let huisnummer = document.querySelector('.huisnummer');
     let postcode = document.querySelector('.postcode');
     let stad = document.querySelector('.stad');
+    let telefoon = document.querySelector('.telephone');
     let who;
     let lat;
     let long;
@@ -71,7 +72,8 @@ export default () => {
                             postcode: postcode.value,
                             stad: stad.value,
                             lat: lat,
-                            long: long
+                            long: long,
+                            tel: telefoon.value
                         });
                     })
 
@@ -79,7 +81,8 @@ export default () => {
                 firebase.database().ref('users').push({
                     username: name.value,
                     email: email,
-                    type: type.value
+                    type: type.value,
+                    tel: telefoon.value
                 });
 
             }
@@ -116,6 +119,20 @@ export default () => {
             }
         }
     }, 500);
+    document.querySelector('.question').addEventListener('click', function (e) {
+        document.querySelector('.loginform').style.display = "none";
+        document.querySelector('.create').style.display = "none";
+        document.querySelector('.forgotpassword').style.display = "block";
+        document.querySelector('.forgotpass').addEventListener('click', function (e) {
+            e.preventDefault();
+            let emailaddressforgot = document.querySelector('.forgotpassmail').value
+            firebase.auth().sendPasswordResetEmail(emailaddressforgot).then(function () {
+                location.reload();
+            }).catch(function (error) {
+                console.log('error')
+            });
+        })
+    })
 };
 
 /*
